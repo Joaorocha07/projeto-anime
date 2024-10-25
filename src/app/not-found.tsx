@@ -1,9 +1,8 @@
 'use client'
-
-import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
-export default function Home (): JSX.Element {
+export default function NotFound (): JSX.Element {
   const router = useRouter()
 
   useEffect(() => {
