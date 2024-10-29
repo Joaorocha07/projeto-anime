@@ -6,7 +6,7 @@ export default function NotFound (): JSX.Element {
   const router = useRouter()
 
   useEffect(() => {
-    router.push('/tik-tok-video')
+    router.push('/login')
   }, [router])
 
   return (

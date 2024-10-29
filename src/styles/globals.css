@@ -1,34 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700&display=swap');
+
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  font-family: 'Lexend Deca', sans-serif;
 }
+
+:root {
+  --white: #FFF;
+  --whitesmoke: #F9F9F9;
+  --light-grey: #ECECEC;
+  --grey: #C4C4C4;
+  --medium-grey: #A7A7A7;
+  --deep-grey: #343434;
+  --black: #000000;
+  --blue: #1B77F3;
+  --red: #CF3C3F;
+}
+
 
 .scrollableContent {
   height: 100vh;
   overflow-y: scroll;
 }
 
-/* Estilo da barra de rolagem para WebKit (Chrome, Safari) */
 ::-webkit-scrollbar {
-  width: 12px; /* Largura da barra de rolagem */
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Cor de fundo da trilha da barra de rolagem */
+  background: #f1f1f1;
   border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888; /* Cor do "polegar" da barra de rolagem */
+  background: #888;
   border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Cor do "polegar" ao passar o mouse */
+  background: #555;
 }
 
-/* Estilo da barra de rolagem para Firefox */
-scrollbar-width: thin; /* Espessura da barra de rolagem */
-scrollbar-color: #888 #f1f1f1; /* Cor do "polegar" e trilha da barra de rolagem */
+scrollbar-width: thin;
+scrollbar-color: #888 #f1f1f1;
 

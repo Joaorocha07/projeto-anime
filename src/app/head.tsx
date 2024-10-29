@@ -28,20 +28,6 @@ export default function CustomHead ({ title, description }: CustomHeadProps): JS
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content="../../public/logo-branco.png" />
-      {/* Google Analytics
-      <Script
-        async
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GOOGLE_ANALYTICS}`}
-      />
-
-      <Script id="ga-script" strategy="lazyOnload">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', ${process.env.GOOGLE_ANALYTICS});
-              `}
-      </Script> */}
     </>
   )
 }
