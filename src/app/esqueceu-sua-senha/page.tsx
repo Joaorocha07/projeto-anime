@@ -75,8 +75,17 @@ export default function Cadastro (): JSX.Element {
               Recupere sua conta
             </Typography>
 
-            {currentStep === 1 && <FormStepOne email={email} setEmail={setEmail} emailError={emailError} setEmailError={setEmailError} />}
-            {currentStep === 2 && <FormStepTwo />}
+            {currentStep === 1 &&
+              <FormStepOne
+                email={email}
+                setEmail={setEmail}
+                emailError={emailError}
+                setEmailError={setEmailError}
+              />
+            }
+            {currentStep === 2 &&
+              <FormStepTwo />
+            }
           </Box>
 
           <Footer onNextStep={handleNextStep} />
