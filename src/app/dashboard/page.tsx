@@ -14,7 +14,7 @@ export default function Dashboard (): JSX.Element {
           backgroundColor: '#141414',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          height: '100vh', // Ajuste conforme necessário
+          height: '100vh',
           display: 'flex',
           flexDirection: 'column'
         }}

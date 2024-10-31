@@ -1,34 +1,42 @@
 import React, { useState } from 'react'
+
 import {
   Box,
+  Menu,
+  List,
   AppBar,
-  Toolbar,
-  useTheme,
-  IconButton,
-  Typography,
-  InputBase,
+  Button,
+  Dialog,
   Avatar,
   Drawer,
-  List,
+  Divider,
+  Toolbar,
+  useTheme,
   ListItem,
+  MenuItem,
+  InputBase,
+  IconButton,
+  Typography,
+  DialogTitle,
   ListItemIcon,
   ListItemText,
-  Divider,
-  Button,
-  Menu,
-  MenuItem,
+  DialogActions,
   useMediaQuery
 } from '@mui/material'
+
+import { useRouter } from 'next/navigation'
+
+import Image from 'next/image'
+import Cookies from 'js-cookie'
+import ProfileModal from './ProfileModal'
 import MenuIcon from '@mui/icons-material/Menu'
 import HomeIcon from '@mui/icons-material/Home'
 import MovieIcon from '@mui/icons-material/Movie'
 import SearchIcon from '@mui/icons-material/Search'
-import ExitToAppIcon from '@mui/icons-material/ExitToApp'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown' // Importando o ícone da seta
-import Logo from '../../../../public/images/logo-branco.webp'
 import CreateIcon from '@mui/icons-material/Create'
-import Image from 'next/image'
-import ProfileModal from './ProfileModal'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'
+import Logo from '../../../../public/images/logo-branco.webp'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 
 const navItems = [
   { label: 'Home', icon: <HomeIcon />, id: 'home' },
@@ -36,12 +44,15 @@ const navItems = [
 ]
 
 export default function Header (): JSX.Element {
+  const theme = useTheme()
+  const router = useRouter()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
-  const [avatarMenuAnchor, setAvatarMenuAnchor] = useState<null | HTMLElement>(null)
-  const theme = useTheme()
+  const [openLogoutModal, setOpenLogoutModal] = useState(false)
   const [profileModalOpen, setProfileModalOpen] = useState(false)
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const [avatarMenuAnchor, setAvatarMenuAnchor] = useState<null | HTMLElement>(null)
 
   const toggleDrawer = (open: boolean) => () => {
     setDrawerOpen(open)
@@ -60,25 +71,40 @@ export default function Header (): JSX.Element {
   }
 
   const handleOpenProfileModal = (): void => {
-    setProfileModalOpen(true) // Abre o modal
-    handleCloseAvatarMenu() // Fecha o menu do avatar
+    setProfileModalOpen(true)
+    handleCloseAvatarMenu()
   }
 
   const handleCloseProfileModal = (): void => {
-    setProfileModalOpen(false) // Fecha o modal
+    setProfileModalOpen(false)
+  }
+
+  const handleOpenLogoutModal = (): void => {
+    setOpenLogoutModal(true)
+  }
+
+  const handleCloseLogoutModal = (): void => {
+    setOpenLogoutModal(false)
+  }
+
+  const handleLogout = (): void => {
+    router.push('/login')
+    Cookies.remove('jwt')
+    handleCloseLogoutModal()
+    handleCloseAvatarMenu()
   }
 
   return (
     <AppBar position="static" sx={{ backgroundColor: '#0d0d0d', display: 'flex' }}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-        {/* Left Section: Logo */}
+
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Image
             src={Logo}
             style={{ maxWidth: '100%', width: '200px', height: 'auto', marginRight: 40, marginTop: 8 }}
             alt="logo"
           />
-          {/* Show nav items only on desktop */}
+
           {!isMobile && (
             <Box sx={{ display: 'flex', gap: 3 }}>
               {navItems.map((item) => (
@@ -104,7 +130,6 @@ export default function Header (): JSX.Element {
           )}
         </Box>
 
-        {/* Right Section: Search, Profile, and Logout */}
         {isMobile ? (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <IconButton color="inherit" onClick={toggleDrawer(true)}>
@@ -113,7 +138,7 @@ export default function Header (): JSX.Element {
           </Box>
         ) : (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            {/* Search Box with Transition */}
+
             <Box
               sx={{
                 display: 'flex',
@@ -143,7 +168,7 @@ export default function Header (): JSX.Element {
                 />
               )}
             </Box>
-            {/* Avatar with menu */}
+
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Avatar
                 alt="User Profile"
@@ -153,12 +178,12 @@ export default function Header (): JSX.Element {
                   cursor: 'pointer',
                   width: 40,
                   height: 40,
-                  borderRadius: '8px' // Makes the avatar square with rounded corners
+                  borderRadius: '8px'
                 }}
                 onClick={handleAvatarClick}
               />
               <IconButton onClick={handleAvatarClick} sx={{ p: 0 }}>
-                <ArrowDropDownIcon sx={{ color: '#fff' }} /> {/* Seta ao lado do Avatar */}
+                <ArrowDropDownIcon sx={{ color: '#fff' }} />
               </IconButton>
               <Menu
                 anchorEl={avatarMenuAnchor}
@@ -166,8 +191,8 @@ export default function Header (): JSX.Element {
                 onClose={handleCloseAvatarMenu}
                 PaperProps={{
                   sx: {
-                    backgroundColor: '#fff', // Fundo branco para o menu
-                    boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.2)' // Sombra suave
+                    backgroundColor: '#fff',
+                    boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.2)'
                   }
                 }}
               >
@@ -177,7 +202,7 @@ export default function Header (): JSX.Element {
                   </ListItemIcon>
                   <ListItemText primary="Ver meu perfil" />
                 </MenuItem>
-                <MenuItem onClick={handleCloseAvatarMenu} sx={{ borderTop: '1px solid #e0e0e0' }}>
+                <MenuItem onClick={handleOpenLogoutModal} sx={{ borderTop: '1px solid #e0e0e0' }}>
                   <ListItemIcon>
                     <ExitToAppIcon sx={{ color: 'primary.main' }} />
                   </ListItemIcon>
@@ -189,7 +214,18 @@ export default function Header (): JSX.Element {
         )}
       </Toolbar>
 
-      {/* Drawer for Mobile Navigation */}
+      <Dialog open={openLogoutModal} onClose={handleCloseLogoutModal}>
+        <DialogTitle>Tem certeza que deseja sair?</DialogTitle>
+        <DialogActions>
+          <Button onClick={handleCloseLogoutModal} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={handleLogout} color="primary">
+            Sair
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
         <Box
           sx={{
@@ -204,7 +240,7 @@ export default function Header (): JSX.Element {
           role="presentation"
           onClick={toggleDrawer(false)}
         >
-          {/* User Avatar */}
+
           <Avatar alt="User Profile" src="/path/to/profile.jpg" sx={{ width: 100, height: 100, mb: 2 }} />
           <Divider sx={{ width: '80%', backgroundColor: '#fff', mb: 2 }} />
           <List sx={{ width: '100%' }}>
@@ -222,6 +258,7 @@ export default function Header (): JSX.Element {
             color="primary"
             startIcon={<ExitToAppIcon />}
             sx={{ marginTop: 'auto', mb: 2, width: '90%' }}
+            onClick={handleOpenLogoutModal}
           >
             Sair
           </Button>
