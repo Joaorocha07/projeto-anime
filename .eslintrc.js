@@ -17,5 +17,6 @@ module.exports = {
         "react"
     ],
     "rules": {
+        "multiline-ternary": "off"
     }
 }
