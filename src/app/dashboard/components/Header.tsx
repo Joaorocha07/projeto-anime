@@ -101,7 +101,7 @@ export default function Header (): JSX.Element {
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Image
             src={Logo}
-            style={{ maxWidth: '100%', width: '200px', height: 'auto', marginRight: 40, marginTop: 8 }}
+            style={{ maxWidth: '100%', width: '200px', height: 'auto', marginRight: 40, marginTop: 8, marginLeft: 30 }}
             alt="logo"
           />
 

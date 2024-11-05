@@ -1,14 +1,13 @@
 'use client'
 import React from 'react'
 
-// import Background from '../../../public/images/background-dashboard.webp'
 import { Box, useMediaQuery } from '@mui/material'
+import { animeData, images } from '@/variaveis/catalogo'
 
 import Header from './components/Header'
 import Banner from './components/Banner'
 import Catalogo from './components/Catalogo'
 import CatalogoMobile from './components/CatalogoMobile'
-import { images } from '@/variaveis/catalogo'
 
 export default function Dashboard (): JSX.Element {
   const isMobile = useMediaQuery('(max-width:600px)')
@@ -17,7 +16,6 @@ export default function Dashboard (): JSX.Element {
     <>
       <Box
         sx={{
-          // backgroundImage: `url(${Background.src})`,
           backgroundColor: '#141414',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -35,8 +33,8 @@ export default function Dashboard (): JSX.Element {
           </>
         ) : (
           <>
-            <Catalogo titulo="Minha lista" images={images} />
-            <Catalogo titulo="Os mais avaliados" images={images} />
+            <Catalogo titulo="Minha lista" animeData={animeData} />
+            <Catalogo titulo="Os mais avaliados" animeData={animeData} />
           </>
         )}
       </Box>
